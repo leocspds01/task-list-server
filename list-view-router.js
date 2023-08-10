@@ -2,19 +2,6 @@ const express = require ('express');
 const router = express.Router();
 const listatareas = require ("./listatarea.json");
 
-router.get("/tarea/:id", (req, res) => {
-    const id = req.params.id;
-    const listatarea = listatareas.filter((listatarea) => listatarea.id == id);
-    if(listatareas.length < id){
-        res.status(404).send("tarea no existe");
-    } else{
-        res.send({
-            success: true,
-            content: listatarea
-        })
-    }
-});
-
 router.get("/completas", (req, res) => {
     const completadas= listatareas.filter((listatarea) => listatarea.isCompleted == true);
     if (completadas.length > 0) {
@@ -45,5 +32,19 @@ router.get("/listatarea", (req, res) => {
         content: listatareas,
     });
 });
+
+router.get("/tarea/:id", (req, res) => {
+    const id = req.params.id;
+    const listatarea = listatareas.filter((listatarea) => listatarea.id == id);
+    if(listatareas.length < id){
+        res.status(404).send("tarea no existe");
+    } else{
+        res.send({
+            success: true,
+            content: listatarea
+        })
+    }
+});
+
 
 module.exports = router;
