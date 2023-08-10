@@ -3,6 +3,23 @@ const router = express.Router();
 const listatareas = require ("./listatarea.json");
 router.use(express.json());
 
+function bodyValidation(req, res, next) {
+    if(Object.values(req.body).length === 0) {
+        res.status(400).send("body sin informacion");
+    }else{
+        next();
+    }
+}
+
+function dataValidation(req, res, next) {
+    const{ isCompleted, description} = req.body;
+    if (!isCompleted || !description) {
+        res.status(400).send("No hay informacion suficiente para crear la tarea");
+    } else {
+        next();
+    }
+}
+
 router.post("/listatarea", (req, res) => {
     const {isCompleted, description} = req.body;
     const id = listatareas.length + 1;
