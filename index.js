@@ -2,6 +2,7 @@ const express = require('express');
 const listviewrouter = require("./list-view-router");
 const listeditrouter = require ("./list-edit-router");
 const listatareaView = require("./listatarea-view-router");
+const jwtlogin = require("./jwtlogin");
 const app = express();
 const port= 3000;
 
@@ -23,6 +24,7 @@ app.use(methods);
 app.use("/listview", listviewrouter);
 app.use("/listedit", listeditrouter);
 app.use("/listatareaView", listatareaView);
+app.use("/jwtlogin", jwtlogin);
 
 app.listen(port, () => {
     console.log("servidor encendido");
